@@ -1,13 +1,11 @@
 import os
-from logging.config import dictConfig
-
 
 class Config:
     """
     App configuration
     """
 
-    APP_NAME = os.environ.get('APP_NAME', 'Cumulus API')
+    APP_NAME = os.environ.get('APP_NAME', 'FileUploader')
 
     # project directory (absolute path), path containing config.py file
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))

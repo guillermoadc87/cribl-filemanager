@@ -12,5 +12,3 @@ api_v1 = Api(v1_blueprint,
              description='')
 
 api_v1.add_namespace(main_ns)
-
-
