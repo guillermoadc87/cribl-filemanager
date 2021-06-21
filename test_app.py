@@ -30,11 +30,5 @@ def test_list(client):
 def test_download(client):
 
     response = client.get("/api/v1/download/test/file_test.tgz/")
-    
-    print(response)
-    print(type(response.data))
-    r_data = response.json
-
-    print(r_data)
 
     assert response.status == '200 OK' and type(response.data) == bytes

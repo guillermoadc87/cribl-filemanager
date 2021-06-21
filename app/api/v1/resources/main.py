@@ -3,13 +3,13 @@ import os
 from datetime import datetime
 from flask import request, send_file, current_app
 from flask_restx import Resource, Namespace
-from .mixin import HelperMixIn
+from .mixin import HelperMixIn, S3MixIn
 from ..parser import file_upload, file_name
 
 main_ns = Namespace('Main', path="/")
 
 @main_ns.route('/upload/<customername>/')
-class UploadFile(HelperMixIn, Resource):
+class UploadFile(HelperMixIn, S3MixIn, Resource):
 
     @main_ns.expect(file_upload)
     def post(self, customername):
@@ -30,7 +30,7 @@ class UploadFile(HelperMixIn, Resource):
 
         # Generate bucket key
         filename = datetime.now().strftime("%d-%m-%YT%H:%M:%S")
-        key      = f'{customername}/{filename}.tgz'
+        key = f'{customername}/{filename}.tgz'
 
         # Upload file
         self.upload_file(key, tgz_file)
@@ -38,7 +38,7 @@ class UploadFile(HelperMixIn, Resource):
         return {'success': True}, 200
 
 @main_ns.route('/list/<customername>/')
-class GetFiles(HelperMixIn, Resource):
+class GetFiles(S3MixIn, Resource):
 
     def get(self, customername):
         """
@@ -53,7 +53,7 @@ class GetFiles(HelperMixIn, Resource):
         return {'success': True, 'files': file_list, 'totals': len(file_list)}, 200
 
 @main_ns.route('/download/<customername>/<filename>/')
-class GetFiles(HelperMixIn, Resource):
+class GetFiles(S3MixIn, Resource):
 
     def get(self, customername, filename):
         """

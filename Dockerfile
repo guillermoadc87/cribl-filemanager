@@ -1,4 +1,7 @@
 FROM python:3.9.5
+
+LABEL version="0.0.1"
+
 ENV ENV /root/.profile
 ENV PYTHONUNBUFFERED 1
 RUN apt-get update && apt-get upgrade -y && pip install --upgrade pip

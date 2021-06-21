@@ -3,14 +3,16 @@ from flask import current_app
 
 class HelperMixIn:
 
-    def __init__(self, *args, **kwargs):
-        super(HelperMixIn, self).__init__(*args, **kwargs)
-        self.s3_client()
-
     def allowed_file(self, filename):
         return '.' in filename and \
             filename.rsplit('.', 1)[1].lower() in current_app.config.get('ALLOWED_EXTENSIONS')
-    
+
+class S3MixIn:
+
+    def __init__(self, *args, **kwargs):
+        super(S3MixIn, self).__init__(*args, **kwargs)
+        self.s3_client()
+
     def s3_client(self):
         session = boto3.session.Session()
         self.client = session.client('s3')
