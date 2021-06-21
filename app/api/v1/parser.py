@@ -7,9 +7,3 @@ file_upload.add_argument('tgz_file',
                          location='files', 
                          required=True, 
                          help='TGZ file')
-
-file_name = reqparse.RequestParser()
-file_name.add_argument('filename',  
-                         type=str, 
-                         location='args', 
-                         help='TGZ filename')
