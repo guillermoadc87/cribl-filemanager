@@ -3,15 +3,18 @@ from logging.config import dictConfig
 
 
 class Config:
+    """
+    App configuration
+    """
 
     APP_NAME = os.environ.get('APP_NAME', 'Cumulus API')
 
     # project directory (absolute path), path containing config.py file
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-    S3_BUCKET = 'bucket-filemanager-sand'
+    S3_BUCKET = os.environ.get('S3_BUCKET', 'bucket-filemanager-sand')
 
-    ALLOWED_EXTENSIONS = {'tgz'}
+    ALLOWED_EXTENSIONS = os.environ.get('ALLOWED_EXTENSIONS', {'tgz'})
 
     LOGGIN = {
         'version': 1,

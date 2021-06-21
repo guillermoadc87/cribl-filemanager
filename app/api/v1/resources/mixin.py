@@ -3,20 +3,22 @@ from flask import current_app
 
 class HelperMixIn:
 
-    def __init__(self, *args, **kwargs):
-        super(HelperMixIn, self).__init__(*args, **kwargs)
-        self.s3_client()
-
     def allowed_file(self, filename):
         return '.' in filename and \
             filename.rsplit('.', 1)[1].lower() in current_app.config.get('ALLOWED_EXTENSIONS')
-    
+
+class S3MixIn:
+
+    def __init__(self, *args, **kwargs):
+        super(S3MixIn, self).__init__(*args, **kwargs)
+        self.s3_client()
+
     def s3_client(self):
         session = boto3.session.Session()
         self.client = session.client('s3')
 
         return self.client
-    
+
     def upload_file(self, key, tgz_file):
         """
         Function to upload a file to an S3 bucket
@@ -28,26 +30,26 @@ class HelperMixIn:
         )
 
         return response
-        
-    def list_files(self, customername):
+
+    def list_files(self, customer):
         """
         Function to list files in a given S3 bucket
         """
         response = self.client.list_objects(
             Bucket=current_app.config.get('S3_BUCKET'),
-            Prefix=customername
+            Prefix=customer
         )
 
         file_list = []
 
         # Parser key to get filename and add to list
         for data in response['Contents']:
-            filename = data['Key'].split(f'{customername}/')[-1]
+            filename = data['Key'].split(f'{customer}/')[-1]
             file_list.append(filename)
 
         return file_list
 
-    def download_file(self, customername, filename):
+    def download_file(self, customer, filename):
         """
         Function to list files in a given S3 bucket
         """
@@ -55,8 +57,9 @@ class HelperMixIn:
 
         self.client.download_file(
             Bucket=current_app.config.get('S3_BUCKET'),
-            Key=f'{customername}/{filename}',
+            Key=f'{customer}/{filename}',
             Filename=f
         )
 
         return f
+        
