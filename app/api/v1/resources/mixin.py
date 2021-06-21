@@ -10,7 +10,7 @@ class HelperMixIn:
 class S3MixIn:
 
     def __init__(self, *args, **kwargs):
-        super(S3MixIn, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.s3_client()
 
     def s3_client(self):
@@ -24,7 +24,7 @@ class S3MixIn:
         Function to upload a file to an S3 bucket
         """
         response = self.client.put_object(
-            Bucket=current_app.config.get('S3_BUCKET'), 
+            Bucket=current_app.config.get('S3_BUCKET'),
             Key=key,
             Body=tgz_file
         )
@@ -62,4 +62,3 @@ class S3MixIn:
         )
 
         return f
-        
