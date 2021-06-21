@@ -1,2 +1,2 @@
 [MASTER]
-disable=redefined-outer-name,missing-module-docstring,missing-class-docstring,missing-function-docstring,invalid-name,too-few-public-methods,syntax-error
+disable=redefined-outer-name,missing-module-docstring,missing-class-docstring,missing-function-docstring,invalid-name,too-few-public-methods,syntax-error,no-self-use

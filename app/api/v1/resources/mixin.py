@@ -10,7 +10,7 @@ class HelperMixIn:
 class S3MixIn:
 
     def __init__(self, *args, **kwargs):
-        super(S3MixIn, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.s3_client()
 
     def s3_client(self):
@@ -62,4 +62,3 @@ class S3MixIn:
         )
 
         return f
-        

@@ -1,10 +1,9 @@
 
-import os
 from datetime import datetime
-from flask import request, send_file, current_app
-from flask_restx import Resource, Namespace
-from .mixin import HelperMixIn, S3MixIn
 from ..parser import file_upload
+from .mixin import HelperMixIn, S3MixIn
+from flask import send_file, current_app
+from flask_restx import Resource, Namespace
 
 main_ns = Namespace('Main', path="/")
 
